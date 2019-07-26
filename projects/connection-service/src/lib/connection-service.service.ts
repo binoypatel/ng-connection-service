@@ -86,14 +86,19 @@ export class ConnectionService implements OnDestroy {
    * You should use "updateOptions" function.
    */
   get options(): ConnectionServiceOptions {
-    return Object.assign(this.serviceOptions);
+    return {
+      ...this.serviceOptions
+    };
   }
 
   constructor(
     private http: HttpClient,
     @Inject(ConnectionServiceOptionsToken) @Optional() options: ConnectionServiceOptions
   ) {
-    this.serviceOptions = Object.assign({}, options, ConnectionService.DEFAULT_OPTIONS);
+    this.serviceOptions = {
+      ...ConnectionService.DEFAULT_OPTIONS,
+      ...options
+    };
 
     this.checkNetworkState();
     this.checkInternetState();
@@ -181,7 +186,10 @@ export class ConnectionService implements OnDestroy {
    * @param options Partial option values.
    */
   updateOptions(options: Partial<ConnectionServiceOptions>) {
-    this.serviceOptions = Object.assign({}, options, this.serviceOptions);
+    this.serviceOptions = {
+      ...this.serviceOptions,
+      ...options
+    };
     this.checkInternetState();
   }
 }
