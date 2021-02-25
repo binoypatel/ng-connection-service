@@ -8,6 +8,56 @@ import { switchMap, retryWhen, tap, delay, debounceTime, startWith } from 'rxjs/
  * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
  */
 /**
+ * Instance of this interface is used to report current connection status.
+ * @record
+ */
+function ConnectionState() { }
+if (false) {
+    /**
+     * "True" if browser has network connection. Determined by Window objects "online" / "offline" events.
+     * @type {?}
+     */
+    ConnectionState.prototype.hasNetworkConnection;
+    /**
+     * "True" if browser has Internet access. Determined by heartbeat system which periodically makes request to heartbeat Url.
+     * @type {?}
+     */
+    ConnectionState.prototype.hasInternetAccess;
+}
+/**
+ * Instance of this interface could be used to configure "ConnectionService".
+ * @record
+ */
+function ConnectionServiceOptions() { }
+if (false) {
+    /**
+     * Controls the Internet connectivity heartbeat system. Default value is 'true'.
+     * @type {?|undefined}
+     */
+    ConnectionServiceOptions.prototype.enableHeartbeat;
+    /**
+     * Url used for checking Internet connectivity, heartbeat system periodically makes "HEAD" requests to this URL to determine Internet
+     * connection status. Default value is "//internethealthtest.org".
+     * @type {?|undefined}
+     */
+    ConnectionServiceOptions.prototype.heartbeatUrl;
+    /**
+     * Interval used to check Internet connectivity specified in milliseconds. Default value is "30000".
+     * @type {?|undefined}
+     */
+    ConnectionServiceOptions.prototype.heartbeatInterval;
+    /**
+     * Interval used to retry Internet connectivity checks when an error is detected (when no Internet connection). Default value is "1000".
+     * @type {?|undefined}
+     */
+    ConnectionServiceOptions.prototype.heartbeatRetryInterval;
+    /**
+     * HTTP method used for requesting heartbeat Url. Default is 'head'.
+     * @type {?|undefined}
+     */
+    ConnectionServiceOptions.prototype.requestMethod;
+}
+/**
  * InjectionToken for specifing ConnectionService options.
  * @type {?}
  */
@@ -162,6 +212,48 @@ ConnectionService.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [ConnectionServiceOptionsToken,] }, { type: Optional }] }
 ];
 /** @nocollapse */ ConnectionService.ngInjectableDef = ɵɵdefineInjectable({ factory: function ConnectionService_Factory() { return new ConnectionService(ɵɵinject(HttpClient), ɵɵinject(ConnectionServiceOptionsToken, 8)); }, token: ConnectionService, providedIn: "root" });
+if (false) {
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.DEFAULT_OPTIONS;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.stateChangeEventEmitter;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.currentState;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.offlineSubscription;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.onlineSubscription;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.httpSubscription;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.serviceOptions;
+    /**
+     * @type {?}
+     * @private
+     */
+    ConnectionService.prototype.http;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -175,6 +267,16 @@ ConnectionServiceModule.decorators = [
                 providers: [ConnectionService]
             },] }
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
 
 export { ConnectionService, ConnectionServiceModule, ConnectionServiceOptionsToken };
 //# sourceMappingURL=ng-connection-service.js.map
